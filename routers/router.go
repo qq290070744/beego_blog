@@ -17,4 +17,6 @@ func init() {
 	beego.Router("/login", &controller.LoginController{})
 
 	beego.SetStaticPath("/attachment", "attachment")
+
+	//beego.Router("/attachment/:all",&controller.Attachment)
 }
