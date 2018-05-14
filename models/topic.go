@@ -4,9 +4,11 @@ import (
 	"time"
 	"github.com/astaxie/beego/orm"
 	"strconv"
+	"os"
+	"path"
 )
 
-func AddTopic(title, content, category string) error {
+func AddTopic(title, content, category, attachment string) error {
 	time.LoadLocation("Asia/Chongqing")
 	o := orm.NewOrm()
 	topic := &Topic{
@@ -16,7 +18,7 @@ func AddTopic(title, content, category string) error {
 		Content:    content,
 		Created:    time.Now(),
 		Updated:    time.Now(),
-		Attachment: "",
+		Attachment: attachment,
 		Views:      0,
 		Author:     "",
 		ReplyTime:  time.Now(),
@@ -37,11 +39,13 @@ func AddTopic(title, content, category string) error {
 	return err
 }
 
-func ModifyTopic(tid, title, content, category string) error {
+func ModifyTopic(tid, title, content, category, attachment string) error {
 	tidNum, err := strconv.ParseInt(tid, 10, 64)
 	if err != nil {
 		return err
 	}
+
+	var old_attach string
 	o := orm.NewOrm()
 
 	old_category := new(Topic)
@@ -53,11 +57,21 @@ func ModifyTopic(tid, title, content, category string) error {
 		Id: tidNum,
 	}
 	if o.Read(topic) == nil {
+		old_attach = topic.Attachment
+
 		topic.Title = title
 		topic.Category = category
 		topic.Content = content
 		topic.Updated = time.Now()
+		topic.Attachment = attachment
+
 		o.Update(topic)
+
+		if len(old_attach) > 0 {
+			//删除旧的附件
+			os.Remove(path.Join("attachment", old_attach))
+		}
+
 		if old_category.Category != category {
 			old_cate := new(Category)
 			qs := o.QueryTable("category")

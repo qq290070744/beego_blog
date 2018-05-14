@@ -15,9 +15,9 @@
     <h1 class="text-center"><a href="/topic/modify?tid={{.Tid}}" class="btn btn-primary">修改文章</a><a
             href="/topic/delete/{{.Topic.Id}}" class="btn-danger btn">删除文章</a></h1>
 
+    <h5>文章附件：<a href="/attachment/{{.Topic.Attachment}}">{{.Topic.Attachment}}</a></h5>
 
     <p class="text-center">{{.Topic.Content}}</p>
-
 </div>
 
 <div class="container">
@@ -30,6 +30,7 @@
         <a href="/reply/delete?rid={{.Id}}&tid={{$tid}}">删除</a>
     </h4>
     <p>内容：{{.Content}}</p>
+
 {{end}}
     <h3>回复:</h3>
     <form action="/reply/add" method="post">

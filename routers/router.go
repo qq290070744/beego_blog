@@ -15,4 +15,6 @@ func init() {
 	beego.Router("/reply/add", &controller.ReplyController{}, "post:Add")
 	beego.Router("/reply/delete", &controller.ReplyController{}, "*:Delete")
 	beego.Router("/login", &controller.LoginController{})
+
+	beego.SetStaticPath("/attachment", "attachment")
 }
