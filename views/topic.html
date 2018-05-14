@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>文章 我的博客</title>
+{{template "header"}}
+</head>
+<body>
+{{template "nav" .}}
+
+<div class="container ">
+    <br>
+    <h1>文章列表</h1>
+    <a href="/topic/add" class="btn btn-primary">添加文章</a>
+
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>文章名称</th>
+            <th>文章分类</th>
+            <th>最后更新</th>
+            <th>创建时间</th>
+            <th>浏览</th>
+            <th>回复数量</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <thead>
+        {{range .Topics}}
+        <tr>
+            <td>{{.Id}}</td>
+            <td><a href="/topic/view/{{.Id}}">{{.Title}}</a></td>
+            <td>{{.Category}}</td>
+            <td>{{.Updated}}</td>
+            <td>{{.Created}}</td>
+            <td>{{.Views}}</td>
+            <td>{{.ReplyCount}}</td>
+            <td><a href="/topic/delete/{{.Id}}?category={{.Category}}" class="btn-danger btn">删除</a></td>
+        </tr>
+        {{end}}
+        </thead>
+    </table>
+</div>
+
+<script src="/static/js/jquery-1.10.2.min.js"></script>
+<script src="/static/js/bootstrap.min.js"></script>
+</body>
+</html>>
+
+
+

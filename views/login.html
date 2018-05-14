@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+{{template "header"}}
+    <title>登录</title>
+</head>
+<body>
+<br>
+<div class="container" style="width: 500px">
+    <form method="post" action="/login">
+        <div class="form-group">
+            <label>Account</label>
+            <input id="uname" type="text" class="form-control" placeholder="Account" name="uname">
+        </div>
+        <div class="form-group">
+            <label>Password</label>
+            <input id="pwd" type="password" class="form-control" placeholder="Password" name="pwd">
+        </div>
+        <div class="checkbox">
+            <label>
+                <input type="checkbox" name="autoLogin"> 自动登录
+            </label>
+        </div>
+        <button type="submit" class="btn btn-primary" onclick="return checkInput();">登录</button>
+        <button class="btn btn-danger" onclick="return backToHome();">返回主页</button>
+    </form>
+</div>
+</body>
+<script src="/static/js/jquery-1.10.2.min.js"></script>
+<script>
+    function checkInput() {
+        var uname = $("#uname").val();
+        var pwd = $("#pwd").val();
+
+        if (uname.length == 0) {
+            alert("用户名不能为空");
+            return false
+        }
+        if (pwd.length == 0) {
+            alert("密码不能为空");
+            return false
+        }
+    }
+
+    function backToHome() {
+        window.location.href = "/";
+        return false
+    }
+</script>
+</html>

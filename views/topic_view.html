@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>{{.Topic.Title}} 我的博客</title>
+{{template "header"}}
+</head>
+<body>
+{{template "nav" .}}
+
+<div class="container ">
+    <br>
+    <h1 class="text-center">{{.Topic.Title}}</h1>
+    <h5 class="text-center"> 分类: {{.Topic.Category}}</h5>
+
+    <h1 class="text-center"><a href="/topic/modify?tid={{.Tid}}" class="btn btn-primary">修改文章</a><a
+            href="/topic/delete/{{.Topic.Id}}" class="btn-danger btn">删除文章</a></h1>
+
+
+    <p class="text-center">{{.Topic.Content}}</p>
+
+</div>
+
+<div class="container">
+    <h3>评论列表</h3>
+{{$tid:=.Topic.Id}}
+{{range .Replices}}
+    <h4>昵称：{{.Name}}
+        <small>评论时间：{{.Created}}
+        </small>
+        <a href="/reply/delete?rid={{.Id}}&tid={{$tid}}">删除</a>
+    </h4>
+    <p>内容：{{.Content}}</p>
+{{end}}
+    <h3>回复:</h3>
+    <form action="/reply/add" method="post">
+        <input type="hidden" name="tid" value="{{.Topic.Id}}">
+
+        <div class="form-group">
+            <label>昵称:</label>
+            <input type="text" class="form-control" name="nickname">
+        </div>
+
+        <div class="form-group">
+            <label>内容:</label>
+            <textarea class="form-control" name="content">
+
+            </textarea>
+            <button class="btn btn-primary"> 提交</button>
+        </div>
+
+
+    </form>
+</div>
+<script src="/static/js/jquery-1.10.2.min.js"></script>
+<script src="/static/js/bootstrap.min.js"></script>
+</body>
+</html>>
+
+
+
